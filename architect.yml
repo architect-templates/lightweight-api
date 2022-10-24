@@ -1,0 +1,32 @@
+name: lightweight-api 
+description: Lightweight rest API to serve filler database.
+
+secrets:
+  api_port:
+    description: Port for api
+    default: 3000
+
+services:
+  api:
+    build:
+      context: .
+    interfaces:
+      http: ${{ secrets.api_port }}
+    environment:
+      PORT: ${{ secrets.api_port }}
+    debug:
+      command: npm run dev
+      build:
+        args:
+          NODE_ENV: development
+      volumes:
+        src:
+          mount_path: /usr/src/app/src
+          host_path: ./src
+
+interfaces:
+  api:
+    description: Public interface to expose API to other services
+    url: ${{ services.api.interfaces.http.url }}
+    ingress:
+      subdomain: api
