@@ -31,7 +31,7 @@ const start = async () => {
   let indx = 0;
   app.get('/', async (req, res) => {
     logger.info('GET /');
-    const arr = ['Awesome!', 'Good Job!', 'Well Done!'];
+    const arr = ['Awesome!', 'Congratulations!', 'Well Done!'];
     indx += 1;
     if (indx > 2) indx = 0;
     return res.status(200).json({ quote: arr[indx] });
