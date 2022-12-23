@@ -11,7 +11,10 @@ services:
     build:
       context: .
     interfaces:
-      http: ${{ secrets.api_port }}
+      main:
+        port: ${{ secrets.api_port }}
+        ingress:
+          subdomain: api
     environment:
       PORT: ${{ secrets.api_port }}
     debug:
@@ -23,10 +26,3 @@ services:
         src:
           mount_path: /usr/src/app/src
           host_path: ./src
-
-interfaces:
-  api:
-    description: Public interface to expose API to other services
-    url: ${{ services.api.interfaces.http.url }}
-    ingress:
-      subdomain: api
